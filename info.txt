@@ -1,0 +1,35 @@
+
+
+/* To show the Category Name or Title of the question you're viewing
+*/
+
+	$catid = $qa_content['q_view']['raw']['categoryid'];
+		$cattitle = qa_db_read_one_value(qa_db_query_sub(
+		'SELECT title FROM ^categories WHERE categoryid=#',
+		$catid
+	));
+  
+  
+  
+  /* To show the Category Name of a list of questions attached to the Questions, such as Recent questions, or Related questions
+  Example gor Related Questions
+  */
+  
+  	$questionid = $qa_content['q_view']['raw']['postid'];
+		$userid = qa_get_logged_in_userid();
+		$questions = qa_db_single_select(qa_db_related_qs_selectspec($userid, $questionid, qa_opt('page_size_related_qs')));
+  
+  foreach ($questions as $question) {
+  	$catid = $qa_content['q_view']['raw']['categoryid'];
+		$cattitle = qa_db_read_one_value(qa_db_query_sub(
+		'SELECT title FROM ^categories WHERE categoryid=#',
+		$catid
+	));
+$this>output('Something');
+}
+
+
+/* Different ways to display metadata of category such as decription, title, backpath...
+*/
+
+$description=qa_db_categorymeta_get($catid, 'description');
